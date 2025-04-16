@@ -11,7 +11,7 @@ namespace ConexaoBD
 
         string dadosConexao = "server=localhost;user=root;database=test_ti42;port=3306;password=";
 
-        public void BuscaProdutos()
+        public List<Produto> BuscaProdutos()
         {
 
             //abrir conexão com o banco
@@ -24,6 +24,7 @@ namespace ConexaoBD
             MySqlCommand comando= new MySqlCommand( sql, conexao );
             MySqlDataReader dados = comando.ExecuteReader();
 
+            List<Produto> lista new List<Produto>()
             while( dados.Read() )
             {
                 //Console.WriteLine("ID: "+dados[0]+" | Nome: "+dados[1]+" | Preço "+dados[2]);
@@ -34,9 +35,13 @@ namespace ConexaoBD
                 p.preco = dados.GetFloat("preco");
                 p.registro = dados.GetDateTime("registro");
 
+                lista.Add(p);
+
             }
 
             conexao.Close();
+
+            return lista;
   
         }
 
